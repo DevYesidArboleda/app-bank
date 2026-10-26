@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Guarda las conexiones/tokens de cada proveedor (Jobber, Plaid/Chase, Paychex)
+// Los valores de tokenEncrypted se guardan CIFRADOS, nunca en texto plano.
+model Integration {
+  id               String   @id @default(cuid())
+  userId           String   // el usuario/cuenta interna de tu app
+  provider         String   // "jobber" | "plaid" | "paychex"
+  accessToken      String   @db.Text // guardado cifrado
+  refreshToken     String?  @db.Text // guardado cifrado (si aplica)
+  itemId           String?  // ej: Plaid item_id, o companyId de Paychex
+  metadata         Json?    // datos extra: institución conectada, scopes, etc.
+  expiresAt        DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([userId, provider, itemId])
+  @@index([userId, provider])
+}
+
+// Cache local de clientes traídos de Jobber (opcional, útil para no pegarle
+// a la API constantemente)
+model JobberClient {
+  id          String   @id @default(cuid())
+  jobberId    String   @unique
+  name        String
+  email       String?
+  phone       String?
+  syncedAt    DateTime @default(now())
+}
+
+// Guarda los valores de Payroll ingresados manualmente semana a semana,
+// mientras se resuelve el acceso a "Payroll and check APIs" en Paychex.
+model WeeklyPayrollEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  weekStart String   // formato YYYY-MM-DD (lunes de esa semana)
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, weekStart])
+}
+
+model WeeklySalesEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  weekStart String
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, weekStart])
+}

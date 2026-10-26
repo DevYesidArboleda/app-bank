@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T05:44:53.851Z",
+  "title": "Design System: Caja semanal",
+  "extensions": {
+    "colorMeta": {
+      "magenta": {
+        "role": "primary",
+        "displayName": "Magenta de sobreimpresión",
+        "canonical": "#b4237e",
+        "tonalRamp": [
+          "#1d0010",
+          "#400c2b",
+          "#66234a",
+          "#8f3a6a",
+          "#b75c8e",
+          "#d788b1",
+          "#f6b4d5",
+          "#ffddf7"
+        ]
+      },
+      "magenta-wash": {
+        "role": "primary",
+        "displayName": "Lavado magenta",
+        "canonical": "#f6e3ee",
+        "tonalRamp": [
+          "#12070e",
+          "#2d1f27",
+          "#493b43",
+          "#685862",
+          "#8b7b84",
+          "#b09fa9",
+          "#d7c4cf",
+          "#fbe8f3"
+        ]
+      },
+      "salidas": {
+        "role": "secondary",
+        "displayName": "Azul de salidas",
+        "canonical": "#3d8fb3",
+        "tonalRamp": [
+          "#000e21",
+          "#002945",
+          "#004768",
+          "#006789",
+          "#388aae",
+          "#5fb0d5",
+          "#8dd6f9",
+          "#c1f8ff"
+        ]
+      },
+      "surplus": {
+        "role": "semantic",
+        "displayName": "Verde profundo",
+        "canonical": "#2f6f4f",
+        "tonalRamp": [
+          "#001202",
+          "#002f14",
+          "#014d2f",
+          "#2c6c4c",
+          "#50906e",
+          "#75b592",
+          "#9bdcb7",
+          "#c9fdde"
+        ]
+      },
+      "deficit": {
+        "role": "semantic",
+        "displayName": "Rojo ladrillo",
+        "canonical": "#a63a2b",
+        "tonalRamp": [
+          "#200000",
+          "#450c06",
+          "#6d2319",
+          "#983c2e",
+          "#c25e4e",
+          "#e08a7b",
+          "#feb6a8",
+          "#ffdfd4"
+        ]
+      },
+      "sand": {
+        "role": "tertiary",
+        "displayName": "Arena",
+        "canonical": "#e9d9a8",
+        "tonalRamp": [
+          "#150800",
+          "#2f2200",
+          "#4c3e0f",
+          "#6b5d2f",
+          "#8e7f51",
+          "#b3a475",
+          "#daca99",
+          "#feeebc"
+        ]
+      },
+      "sand-deep": {
+        "role": "tertiary",
+        "displayName": "Arena profunda",
+        "canonical": "#dcc88c",
+        "tonalRamp": [
+          "#150800",
+          "#322100",
+          "#4f3d00",
+          "#6e5c20",
+          "#927f45",
+          "#b7a369",
+          "#ddc98d",
+          "#ffeebc"
+        ]
+      },
+      "sand-ink": {
+        "role": "tertiary",
+        "displayName": "Tinta de arena",
+        "canonical": "#4a3f1c",
+        "tonalRamp": [
+          "#130900",
+          "#2d2300",
+          "#4a3f1c",
+          "#685d39",
+          "#8c805b",
+          "#b0a47e",
+          "#d7caa3",
+          "#fbeec6"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "#f7f5ee",
+        "tonalRamp": [
+          "#0c0b07",
+          "#25241f",
+          "#41403a",
+          "#5f5e58",
+          "#82807a",
+          "#a6a59e",
+          "#cccac4",
+          "#f0eee7"
+        ]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Papel elevado",
+        "canonical": "#fdfcf8",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252421",
+          "#40403d",
+          "#5e5e5a",
+          "#81807d",
+          "#a5a5a1",
+          "#cbcac7",
+          "#efeeea"
+        ]
+      },
+      "paper-sunk": {
+        "role": "neutral",
+        "displayName": "Papel hundido",
+        "canonical": "#efece2",
+        "tonalRamp": [
+          "#0d0b05",
+          "#26241d",
+          "#424038",
+          "#605e55",
+          "#838077",
+          "#a7a59b",
+          "#cdcac1",
+          "#f1eee4"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "#14202b",
+        "tonalRamp": [
+          "#030c16",
+          "#192531",
+          "#34414e",
+          "#525f6c",
+          "#748290",
+          "#97a7b5",
+          "#bdcddc",
+          "#e1f1ff"
+        ]
+      },
+      "ink-lift": {
+        "role": "neutral",
+        "displayName": "Tinta levantada",
+        "canonical": "#22313f",
+        "tonalRamp": [
+          "#020c18",
+          "#172533",
+          "#324250",
+          "#4f606f",
+          "#718293",
+          "#95a7b8",
+          "#bacddf",
+          "#def1ff"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta 2",
+        "canonical": "#3e4c59",
+        "tonalRamp": [
+          "#030c16",
+          "#192531",
+          "#34414e",
+          "#515f6d",
+          "#738291",
+          "#97a7b6",
+          "#bccddc",
+          "#e0f1ff"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Tinta 3",
+        "canonical": "#5c6873",
+        "tonalRamp": [
+          "#040c14",
+          "#1b252f",
+          "#36414b",
+          "#535f6a",
+          "#75828d",
+          "#99a6b2",
+          "#bfccd9",
+          "#e3f0fd"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "canonical": "#d8d2bf",
+        "tonalRamp": [
+          "#0f0b01",
+          "#282415",
+          "#454030",
+          "#635d4d",
+          "#86806f",
+          "#aaa492",
+          "#d0cab8",
+          "#f5eedb"
+        ]
+      },
+      "rule-soft": {
+        "role": "neutral",
+        "displayName": "Filete suave",
+        "canonical": "#e7e2d3",
+        "tonalRamp": [
+          "#0e0b03",
+          "#282418",
+          "#444033",
+          "#625d51",
+          "#858072",
+          "#a9a496",
+          "#cfcabc",
+          "#f3eedf"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Solo el monto de la predicción, en magenta, centavos a media escala; 2.25rem bajo 860px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título de la semana en curso."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Encabezados de panel y nombre de la marca."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido y celdas de semana; notas a 72ch."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Todo monto: tabla, términos, saldos, tooltip. Sondeos en mono itálica 600 a 11px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Notas de panel, encabezados de tabla, estado de fuentes, leyenda."
+      }
+    },
+    "shadows": [
+      {
+        "name": "tooltip",
+        "value": "0 6px 18px rgba(20, 32, 43, 0.12)",
+        "purpose": "Ficha flotante de la semana en la curva."
+      },
+      {
+        "name": "toast",
+        "value": "0 10px 30px rgba(20, 32, 43, 0.25)",
+        "purpose": "Confirmación o error al pie de pantalla."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Curva de todas las transiciones y entradas."
+      },
+      {
+        "name": "state",
+        "value": "160ms",
+        "purpose": "Hover y cambios de estado en botones, filas y navegación."
+      },
+      {
+        "name": "tide-draw",
+        "value": "1100ms, retraso 120ms",
+        "purpose": "Trazado de las líneas de la curva."
+      },
+      {
+        "name": "tide-fill",
+        "value": "700ms, retraso 500ms",
+        "purpose": "Aparición de rellenos y del tramo de predicción."
+      },
+      {
+        "name": "capacity-grow",
+        "value": "900ms",
+        "purpose": "Crecimiento de la barra necesidad vs saldo."
+      },
+      {
+        "name": "measure",
+        "value": "420ms",
+        "purpose": "Cambio de longitud de las barras de medida."
+      },
+      {
+        "name": "toast-rise",
+        "value": "360ms",
+        "purpose": "Entrada del toast."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1180px"
+      },
+      {
+        "name": "rail-collapse",
+        "value": "860px"
+      },
+      {
+        "name": "phone",
+        "value": "520px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal de un bloque.",
+      "html": "<button class=\"ds-btn ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M13.5 8a5.5 5.5 0 1 1-1.6-3.9\"/><path d=\"M13.5 2.5v3h-3\"/></svg>Actualizar</button>",
+      "css": ".ds-btn{appearance:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper-raised);color:var(--ink);font-family:var(--font-sans);font-size:var(--step-0);font-weight:600;cursor:pointer;transition:border-color 160ms var(--ease-out),background-color 160ms var(--ease-out)} .ds-btn-primary{background:var(--ink);border-color:var(--ink);color:var(--paper-raised)} .ds-btn-primary:hover{background:#22313f;border-color:#22313f} .ds-btn:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Botón secundario",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Acciones de apoyo: reintentar, cancelar.",
+      "html": "<button class=\"ds-btn2\">Reintentar banco</button>",
+      "css": ".ds-btn2{appearance:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper-raised);color:var(--ink);font-family:var(--font-sans);font-size:var(--step-0);font-weight:600;cursor:pointer;transition:border-color 160ms var(--ease-out)} .ds-btn2:hover{border-color:var(--ink-3)} .ds-btn2:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Control segmentado",
+      "kind": "chip",
+      "refersTo": "segmented-option",
+      "description": "Elige el horizonte de semanas.",
+      "html": "<div class=\"ds-seg\"><button>4 semanas</button><button aria-pressed=\"true\">8 semanas</button><button>12 semanas</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:2px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--paper-raised)} .ds-seg button{appearance:none;border:0;background:transparent;padding:5px 10px;border-radius:4px;font-family:var(--font-sans);font-size:var(--step-0);font-weight:500;color:var(--ink-2);cursor:pointer;transition:background-color 160ms var(--ease-out),color 160ms var(--ease-out)} .ds-seg button:hover{color:var(--ink);background:var(--paper-sunk)} .ds-seg button[aria-pressed=true]{background:var(--ink);color:var(--paper-raised)} .ds-seg button:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Navegación lateral",
+      "kind": "nav",
+      "refersTo": "rail-link",
+      "description": "Enlaces sobre la arena de la barra lateral.",
+      "html": "<nav class=\"ds-rail\"><a href=\"#\" aria-current=\"true\">Resumen</a><a href=\"#\">Semanas</a><a href=\"#\">Cuentas</a></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column;gap:2px;padding:16px;background:var(--sand);width:200px} .ds-rail a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:var(--radius);color:var(--sand-ink);font-family:var(--font-sans);font-size:var(--step-1);font-weight:500;text-decoration:none;transition:background-color 160ms var(--ease-out),color 160ms var(--ease-out)} .ds-rail a:hover{background:rgba(255,255,255,0.35);color:var(--ink)} .ds-rail a[aria-current=true]{background:var(--paper-raised);color:var(--ink);outline:1px solid var(--sand-deep);outline-offset:-1px} .ds-rail a:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Campo de monto",
+      "kind": "input",
+      "refersTo": "input-money",
+      "description": "Edición en línea del payroll de una semana.",
+      "html": "<label class=\"ds-money\"><span>$</span><input type=\"text\" value=\"10,000.00\"></label>",
+      "css": ".ds-money{display:inline-flex;align-items:center;height:30px;padding:0 8px;border:1px solid var(--ink);border-radius:4px;background:#fff;font-family:var(--font-mono);font-size:var(--step-0)} .ds-money span{color:var(--ink-3)} .ds-money input{width:96px;border:0;outline:0;padding:0 0 0 4px;background:transparent;font:inherit;text-align:right;caret-color:var(--magenta)} .ds-money:focus-within{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Agregar payroll",
+      "kind": "chip",
+      "refersTo": "row-selected",
+      "description": "Disparador discontinuo de una semana sin payroll; magenta en la fila seleccionada.",
+      "html": "<button class=\"ds-add\">+ Agregar</button> <span class=\"ds-row\"><button class=\"ds-add\" data-on=\"true\">+ Agregar</button></span>",
+      "css": ".ds-add{appearance:none;padding:3px 6px;border:1px dashed var(--ink-3);border-radius:4px;background:transparent;color:var(--ink-2);font-family:var(--font-sans);font-size:var(--step--1);font-weight:600;cursor:text;transition:background-color 160ms var(--ease-out)} .ds-add:hover{background:var(--paper)} .ds-row{display:inline-block;padding:8px 12px;background:var(--magenta-wash)} .ds-add[data-on=true]{color:var(--magenta);border-color:var(--magenta)} .ds-add:focus-visible{outline:2px solid var(--magenta);outline-offset:2px}"
+    },
+    {
+      "name": "Retícula de paneles",
+      "kind": "card",
+      "refersTo": "pane-grid",
+      "description": "Paneles como celdas de una retícula, separados por filetes.",
+      "html": "<div class=\"ds-grid\"><section class=\"ds-pane\"><h2>Saldos bancarios</h2><p class=\"ds-fig\">$26,680.12</p></section><section class=\"ds-pane\"><h2>Resultado</h2><p class=\"ds-fig ds-neg\">−$2,898.50</p></section></div>",
+      "css": ".ds-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule);border-radius:8px;background:var(--paper-raised);overflow:hidden;font-family:var(--font-sans);color:var(--ink)} .ds-pane{padding:20px 22px 22px} .ds-pane+.ds-pane{border-left:1px solid var(--rule)} .ds-pane h2{margin:0 0 14px;font-size:var(--step-2);font-weight:700;letter-spacing:-0.01em} .ds-fig{margin:0;font-family:var(--font-mono);font-size:var(--step-1);font-weight:600;font-variant-numeric:tabular-nums} .ds-neg{color:var(--deficit)}"
+    },
+    {
+      "name": "Monto de predicción",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "La cifra predicha, en magenta mono, centavos elevados.",
+      "html": "<p class=\"ds-forecast\">$16,270<span>.55</span></p>",
+      "css": ".ds-forecast{margin:0;font-family:var(--font-mono);font-size:var(--step-5);font-weight:600;letter-spacing:-0.04em;line-height:1;color:var(--magenta);font-variant-numeric:tabular-nums} .ds-forecast span{font-size:0.5em;letter-spacing:-0.02em;vertical-align:0.62em;margin-left:2px}"
+    },
+    {
+      "name": "Veredicto",
+      "kind": "custom",
+      "refersTo": "verdict",
+      "description": "Holgura o faltante frente al saldo disponible.",
+      "html": "<div class=\"ds-verdict\" data-tone=\"ok\">Tus cuentas cubren la próxima semana con <strong>$10,409.57</strong> de holgura.</div><div class=\"ds-verdict\" data-tone=\"warn\">Faltan <strong>−$1,200.00</strong> para cubrir la próxima semana.</div>",
+      "css": ".ds-verdict{padding:10px 12px;margin-bottom:8px;border-radius:var(--radius);font-family:var(--font-sans);font-size:var(--step-0);line-height:1.45} .ds-verdict strong{font-family:var(--font-mono)} .ds-verdict[data-tone=ok]{background:var(--surplus-wash);color:#1f4d36} .ds-verdict[data-tone=warn]{background:var(--deficit-wash);color:#7a2a1f}"
+    },
+    {
+      "name": "Barra de medida",
+      "kind": "custom",
+      "refersTo": "measure",
+      "description": "Etiqueta, barra a escala compartida y cifra.",
+      "html": "<div class=\"ds-measure\"><span>Payroll</span><div class=\"ds-bar\"><i style=\"transform:scaleX(.46)\"></i></div><span class=\"ds-v\">$10,000.00</span></div>",
+      "css": ".ds-measure{display:grid;grid-template-columns:92px minmax(0,1fr) 96px;align-items:center;gap:10px;font-family:var(--font-sans);font-size:var(--step-0);width:420px} .ds-measure span:first-child{color:var(--ink-2)} .ds-bar{height:12px;background:linear-gradient(to right,var(--rule-soft) 1px,transparent 1px) 0 0/25% 100%;border-left:1px solid var(--ink-3)} .ds-bar i{display:block;height:100%;background:var(--salidas);border-radius:0 2px 2px 0;transform-origin:left;transition:transform 420ms var(--ease-out)} .ds-v{font-family:var(--font-mono);text-align:right}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La tabla de mareas",
+    "overview": "La caja del negocio se lee como una carta náutica: papel claro, tinta azul-negra, tierra de arena a la izquierda y una sola línea de nivel cero ($0) contra la que cada semana sube o baja. Lo observado se dibuja con trazo sólido; lo que todavía no ocurrió se publica como predicción, en magenta de sobreimpresión y trazo punteado. El sistema es denso y de trabajo: filetes de 1px, cifras tabulares monoespaciadas alineadas al margen derecho, y ningún adorno que no sea una medida.\n\nEl color se gana. La interfaz descansa en papel y tinta; el magenta marca solo la predicción y la selección, el verde y el rojo ladrillo solo el signo de un resultado. Seleccionar una semana (en la curva o en la tabla) la decodifica a todo color; el resto queda en tinta atenuada.\n\nEl sistema rechaza la fila de tarjetas KPI con degradado: los paneles son celdas de una misma retícula separadas por filetes, no tarjetas flotantes.",
+    "keyCharacteristics": [
+      "Papel cálido (#f7f5ee) y tinta azul-negra; la barra lateral de arena es la \"tierra\" de la carta.",
+      "Filetes de 1px como estructura; superficies planas.",
+      "Todas las cifras en JetBrains Mono tabular; el texto en Public Sans compacta.",
+      "Magenta reservado a predicción y selección; verde/rojo ladrillo solo para el signo del resultado, siempre con + o −.",
+      "Observado = sólido, predicho = punteado."
+    ],
+    "rules": [
+      {
+        "name": "The Sobreimpresión Rule",
+        "body": "El magenta significa \"predicho\" o \"elegido\", nada más. Nunca decora, nunca es un acento de marca genérico.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signo Rule",
+        "body": "Un monto negativo lleva rojo ladrillo y el signo − (U+2212); uno positivo, verde y +. El color nunca es la única señal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Una Semana a Todo Color Rule",
+        "body": "Solo la semana activa muestra sus sondeos en verde/rojo y sus marcadores llenos; el resto queda en tinta 3.",
+        "section": "colors"
+      },
+      {
+        "name": "The Cifra Tabular Rule",
+        "body": "Todo monto va en mono tabular y alineado a la derecha; `font-variant-numeric: tabular-nums` está activo en todo el cuerpo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Carta Plana Rule",
+        "body": "Paneles, botones, filas y barras no proyectan sombra. Si algo no flota sobre el contenido, se separa con un filete.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** reservar el magenta (#b4237e) para la predicción y la selección.",
+      "**Do** escribir todo monto en JetBrains Mono tabular, alineado a la derecha, con − (U+2212) o + cuando lleva signo.",
+      "**Do** separar paneles con filetes de 1px (#d8d2bf) dentro de una sola retícula de 8px de radio.",
+      "**Do** dibujar lo observado con trazo sólido y lo predicho o pendiente con trazo discontinuo.",
+      "**Do** dar a las barras de una misma vista una sola escala compartida.",
+      "**Do** usar la curva `cubic-bezier(0.16, 1, 0.3, 1)` a 160ms para estados y respetar `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "**Don't** armar filas de tarjetas KPI con degradado.",
+      "**Don't** poner sombra en paneles, botones o filas; solo tooltip y toast flotan.",
+      "**Don't** usar verde o rojo ladrillo como decoración ni comunicar un signo solo con color.",
+      "**Don't** colorear todas las semanas a la vez; solo la activa va a todo color."
+    ]
+  }
+}

@@ -39,3 +39,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.data/
+
+# ── Credenciales: nunca subir ─────────────────────────────────────────
+# Usuario/contraseña del login y notas privadas
+*.local.md
+CREDENCIALES*
+credenciales*
+# Llaves, certificados y cuentas de servicio (Google, etc.)
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+credentials*.json
+service-account*.json
+*-service-account.json
+client_secret*.json
+token*.json
+secrets/
+.secrets/
+# Config local de herramientas (puede guardar comandos con tokens)
+.claude/settings.local.json
+.cursor/mcp.json
+.npmrc
