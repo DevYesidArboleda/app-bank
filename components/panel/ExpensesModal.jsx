@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import CategoryEditor from "./CategoryEditor";
 import { fmt, fmtDay, weekRange } from "./format";
 import { exportPeriodToExcel } from "./exportExpenses";
 import { IconClose, IconDownload } from "./icons";
@@ -10,7 +11,7 @@ const REASON_COPY = {
   account: "Excluded account",
 };
 
-function TxTable({ items, showReason }) {
+function TxTable({ items, showReason, editor }) {
   return (
     <table className="tx-table">
       <thead className="sr-only">
@@ -22,26 +23,104 @@ function TxTable({ items, showReason }) {
       </thead>
       <tbody>
         {items.map((tx) => (
-          <tr key={tx.id ?? `${tx.date}-${tx.description}-${tx.amount}`}>
-            <td className="tx-date">{fmtDay(tx.date)}</td>
-            <td className="tx-desc">
-              <span className="tx-name">{tx.description || "No description"}</span>
-              <span className="tx-meta">
-                {tx.account}
-                {showReason && ` · ${REASON_COPY[tx.reason] || "Not counted"}`}
-              </span>
-            </td>
-            <td className="tx-amount">{fmt(tx.amount)}</td>
-          </tr>
+          <Fragment key={tx.id ?? `${tx.date}-${tx.description}-${tx.amount}`}>
+            <tr>
+              <td className="tx-date">{fmtDay(tx.date)}</td>
+              <td className="tx-desc">
+                <span className="tx-name">{tx.description || "No description"}</span>
+                <span className="tx-meta">
+                  {tx.account}
+                  {showReason && ` · ${REASON_COPY[tx.reason] || "Not counted"}`}
+                  {editor && (
+                    <>
+                      {" · "}
+                      <button
+                        type="button"
+                        className="link-btn"
+                        aria-expanded={editor.editingId === tx.id}
+                        onClick={() => editor.setEditingId(editor.editingId === tx.id ? null : tx.id)}
+                      >
+                        Change category
+                      </button>
+                    </>
+                  )}
+                </span>
+              </td>
+              <td className="tx-amount">{fmt(tx.amount)}</td>
+            </tr>
+            {editor?.editingId === tx.id && (
+              <tr>
+                <td colSpan={3} className="tx-editor">
+                  <CategoryEditor
+                    tx={tx}
+                    config={editor.config}
+                    periodTransactions={editor.periodTransactions}
+                    onSave={editor.save}
+                    onCancel={() => editor.setEditingId(null)}
+                  />
+                </td>
+              </tr>
+            )}
+          </Fragment>
         ))}
       </tbody>
     </table>
   );
 }
 
+// Reglas y cambios guardados, para poder deshacerlos.
+function SavedRules({ config, onRemove }) {
+  const [failed, setFailed] = useState(false);
+  const overrides = Object.entries(config.overrides);
+  const count = config.rules.length + overrides.length;
+  if (count === 0) return null;
+
+  async function remove(body) {
+    setFailed(!(await onRemove(body)));
+  }
+
+  return (
+    <details className="cat cat-excluded">
+      <summary>
+        <span className="cat-name">Your category rules</span>
+        <span className="cat-count">Removing one returns its transactions to the automatic category</span>
+        <span className="cat-amount">{count}</span>
+      </summary>
+      {failed && (
+        <p className="cat-editor-error rule-error" role="alert">
+          Couldn&apos;t remove it. Please try again.
+        </p>
+      )}
+      <ul className="rule-list">
+        {config.rules.map((rule) => (
+          <li key={rule.pattern}>
+            <span className="rule-text">
+              Contains <strong>{rule.pattern}</strong> → {rule.category}
+            </span>
+            <button type="button" className="link-btn" onClick={() => remove({ pattern: rule.pattern })}>
+              Remove
+            </button>
+          </li>
+        ))}
+        {overrides.map(([txId, override]) => (
+          <li key={txId}>
+            <span className="rule-text">
+              Only <strong>{override.description || "this transaction"}</strong> → {override.category}
+            </span>
+            <button type="button" className="link-btn" onClick={() => remove({ txId })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
 // Todo el gasto del período, agrupado por categoría y con cada movimiento.
-export default function ExpensesModal({ period, isCurrent, open, onClose }) {
+export default function ExpensesModal({ period, isCurrent, open, onClose, categoryConfig, onSaveCategory, onRemoveCategory }) {
   const ref = useRef(null);
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     const dialog = ref.current;
@@ -65,6 +144,18 @@ export default function ExpensesModal({ period, isCurrent, open, onClose }) {
 
   const top = categories[0];
   const excludedTotal = excluidos.reduce((s, tx) => s + tx.amount, 0);
+
+  const editor = {
+    editingId,
+    setEditingId,
+    config: categoryConfig,
+    periodTransactions: movimientos,
+    save: async (payload) => {
+      const saved = await onSaveCategory(payload);
+      if (saved) setEditingId(null);
+      return saved;
+    },
+  };
 
   return (
     <dialog
@@ -139,7 +230,7 @@ export default function ExpensesModal({ period, isCurrent, open, onClose }) {
                           <span className="cat-share">{Math.round(share * 100)}%</span>
                           <span className="cat-amount">{fmt(c.amount)}</span>
                         </summary>
-                        <TxTable items={c.items} />
+                        <TxTable items={c.items} editor={editor} />
                       </details>
                     </li>
                   );
@@ -159,6 +250,8 @@ export default function ExpensesModal({ period, isCurrent, open, onClose }) {
                 <TxTable items={excluidos} showReason />
               </details>
             )}
+
+            <SavedRules config={categoryConfig} onRemove={onRemoveCategory} />
           </div>
         </div>
       )}

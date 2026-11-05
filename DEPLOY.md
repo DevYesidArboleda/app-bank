@@ -19,8 +19,8 @@ El sitio completo (panel y `/api/*`) pide login. El usuario y la contraseña est
 ## 2. Crear el proyecto en Vercel
 
 1. vercel.com → **Add New → Project** → importa el repositorio.
-2. Framework: Next.js (lo detecta solo). No cambies los comandos de build:
-   `npm install` corre `prisma generate` (postinstall) y luego `next build`.
+2. Framework: Next.js (lo detecta solo). No cambies los comandos de build.
+   Vercel instala las dependencias y corre `next build`.
 3. Antes de **Deploy**, abre **Environment Variables** y agrega las del paso 3.
 
 ## 3. Variables de entorno
@@ -31,14 +31,14 @@ Copia los valores de tu `.env` local (Settings → Environment Variables, entorn
 |---|---|
 | `AUTH_USERNAME`, `AUTH_PASSWORD_HASH`, `AUTH_SECRET` | Login (valores en `CREDENCIALES.local.md`) |
 | `TOKEN_ENCRYPTION_KEY` | Cifra los tokens de Jobber guardados en Upstash. **Debe ser la misma** que en local o no podrá leer el token ya guardado |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Tokens, payroll manual y límite de intentos del login |
-| `DATABASE_URL`, `DIRECT_URL` | Postgres (Supabase) |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Tokens, payroll manual, reglas de categorías y límite de intentos del login |
 | `JOBBER_CLIENT_ID`, `JOBBER_CLIENT_SECRET`, `JOBBER_AUTH_URL`, `JOBBER_TOKEN_URL`, `JOBBER_API_URL` | Jobber |
 | `JOBBER_REDIRECT_URI` | `https://<tu-proyecto>.vercel.app/api/jobber/callback` (**no** el de localhost) |
 | `SIMPLEFIN_ACCESS_URL` | Chase vía SimpleFIN |
 | `SHEETS_PAYROLL_URL`, `SHEETS_PAYROLL_TOKEN` | Payroll desde Google Sheets |
 
-Plaid y Paychex todavía no se usan en el panel; sus variables son opcionales.
+Paychex todavía no se usa en el panel; sus variables son opcionales. No hace falta base de
+datos: todo lo que se guarda va a Upstash.
 `NEXT_PUBLIC_APP_URL` ya no hace falta.
 
 Si cambias una variable después del primer deploy: **Deployments → ⋯ → Redeploy**.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { EMPTY_CONFIG, reclassifyWeek } from "@/lib/categories";
 import Accounts from "./Accounts";
 import ExpensesModal from "./ExpensesModal";
 import Forecast from "./Forecast";
@@ -62,7 +63,7 @@ function Sources({ sources, loading }) {
         })}
         <li className="source" data-state="pending">
           <span className="source-dot" aria-hidden="true" />
-          <span className="source-name">Paychex · Plaid</span>
+          <span className="source-name">Paychex</span>
           <span className="source-note">Pending</span>
         </li>
       </ul>
@@ -82,6 +83,7 @@ export default function CashPanel() {
   const [updatedAt, setUpdatedAt] = useState(null);
   const [toast, setToast] = useState(null);
   const [section, setSection] = useState("summary");
+  const [categoryConfig, setCategoryConfig] = useState(EMPTY_CONFIG);
 
   // Los cargadores solo escriben estado al terminar; quien los dispara marca el loading.
   const loadSummary = useCallback(async (weeks) => {
@@ -126,6 +128,9 @@ export default function CashPanel() {
       if (!alive) return;
       setAccounts(data);
       setLoading((l) => ({ ...l, accounts: false }));
+    });
+    getJSON("/api/expenses/categorization").then((data) => {
+      if (alive && !data.error) setCategoryConfig(data);
     });
     return () => {
       alive = false;
@@ -242,6 +247,26 @@ export default function CashPanel() {
     setToast({ tone: "ok", text: `Payroll saved for ${weekRange(week)}.` });
     loadSummary(range * group.size);
     loadForecast();
+    return true;
+  }
+
+  // Guarda o quita una regla y reclasifica lo ya cargado: el total no cambia y
+  // así no se vuelve a consultar SimpleFIN ni Jobber por cada cambio.
+  async function changeCategorization(method, body) {
+    let next;
+    try {
+      const r = await fetch("/api/expenses/categorization", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!r.ok) return false;
+      next = await r.json();
+    } catch {
+      return false;
+    }
+    setCategoryConfig(next);
+    setSummary((s) => (s?.summary ? { ...s, summary: s.summary.map((w) => reclassifyWeek(w, next)) } : s));
     return true;
   }
 
@@ -461,6 +486,9 @@ export default function CashPanel() {
         isCurrent={selectedPeriod?.weekStart === currentPeriodKey}
         open={detailOpen && Boolean(selectedPeriod)}
         onClose={() => setDetailOpen(false)}
+        categoryConfig={categoryConfig}
+        onSaveCategory={(body) => changeCategorization("POST", body)}
+        onRemoveCategory={(body) => changeCategorization("DELETE", body)}
       />
 
       {toast && (

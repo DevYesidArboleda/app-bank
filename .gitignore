@@ -63,3 +63,7 @@ secrets/
 .claude/settings.local.json
 .cursor/mcp.json
 .npmrc
+
+# ── Markdown: solo se sube el README ─────────────────────────────────
+*.md
+!README.md

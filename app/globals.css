@@ -1724,6 +1724,130 @@ tr[aria-selected="true"] .payroll-trigger[data-empty="true"] svg {
   flex-shrink: 0;
 }
 
+/* Cambio de categoría */
+.link-btn {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--shoal-deep);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.link-btn:hover {
+  color: var(--ink);
+}
+
+.tx-table td.tx-editor {
+  padding: 0;
+  border-top: 0;
+}
+
+.cat-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 12px 10px;
+  padding: 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+
+.cat-editor-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cat-field {
+  display: flex;
+  flex: 1 1 180px;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.cat-editor select,
+.cat-editor input:not([type="radio"]) {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--step-0);
+}
+
+.cat-editor input:disabled {
+  color: var(--ink-3);
+  background: var(--paper-sunk);
+}
+
+.cat-scope {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--step-0);
+}
+
+.cat-scope label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.cat-editor-note,
+.cat-editor-error {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.cat-editor-error {
+  color: var(--deficit);
+}
+
+.cat-editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.rule-error {
+  padding: 8px 12px 0;
+}
+
+.rule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rule-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: var(--step-0);
+}
+
+.rule-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 /* ── Login ─────────────────────────────────────────────────────────── */
 .login {
   min-height: 100dvh;
