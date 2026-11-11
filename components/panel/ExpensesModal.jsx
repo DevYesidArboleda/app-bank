@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from "react";
 import CategoryEditor from "./CategoryEditor";
+import CategoryManager from "./CategoryManager";
 import { fmt, fmtDay, weekRange } from "./format";
 import { exportPeriodToExcel } from "./exportExpenses";
 import { IconClose, IconDownload } from "./icons";
@@ -76,7 +77,7 @@ function SavedRules({ config, onRemove }) {
   if (count === 0) return null;
 
   async function remove(body) {
-    setFailed(!(await onRemove(body)));
+    setFailed((await onRemove(body)) !== true);
   }
 
   return (
@@ -118,7 +119,16 @@ function SavedRules({ config, onRemove }) {
 }
 
 // Todo el gasto del período, agrupado por categoría y con cada movimiento.
-export default function ExpensesModal({ period, isCurrent, open, onClose, categoryConfig, onSaveCategory, onRemoveCategory }) {
+export default function ExpensesModal({
+  period,
+  isCurrent,
+  open,
+  onClose,
+  categoryConfig,
+  onSaveCategory,
+  onRemoveCategory,
+  onEditCategories,
+}) {
   const ref = useRef(null);
   const [editingId, setEditingId] = useState(null);
 
@@ -151,7 +161,7 @@ export default function ExpensesModal({ period, isCurrent, open, onClose, catego
     config: categoryConfig,
     periodTransactions: movimientos,
     save: async (payload) => {
-      const saved = await onSaveCategory(payload);
+      const saved = (await onSaveCategory(payload)) === true;
       if (saved) setEditingId(null);
       return saved;
     },
@@ -251,6 +261,7 @@ export default function ExpensesModal({ period, isCurrent, open, onClose, catego
               </details>
             )}
 
+            <CategoryManager config={categoryConfig} onChange={onEditCategories} />
             <SavedRules config={categoryConfig} onRemove={onRemoveCategory} />
           </div>
         </div>

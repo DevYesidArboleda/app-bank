@@ -80,7 +80,9 @@ export default function TideChart({
     return () => ro.disconnect();
   }, []);
 
-  const hasForecast = forecast && !forecast.error && forecast.estimatedNeeded > 0;
+  // La gráfica compara contra payroll + gastos, así que usa la salida total esperada
+  const forecastValue = forecast?.estimatedOutflows ?? forecast?.estimatedNeeded;
+  const hasForecast = forecast && !forecast.error && forecastValue > 0;
 
   const model = useMemo(() => {
     const cols = weeks.length + (hasForecast ? 1 : 0);
@@ -92,7 +94,7 @@ export default function TideChart({
     const values = [
       ...weeks.map((w) => w.ventasNeto || 0),
       ...salidas,
-      hasForecast ? forecast.estimatedNeeded : 0,
+      hasForecast ? forecastValue : 0,
     ];
     const ticks = niceTicks(Math.max(...values, 1));
     const top = ticks[ticks.length - 1];
@@ -104,7 +106,7 @@ export default function TideChart({
     const baseY = y(0);
 
     return { cols, colW, x, y, ticks, baseY, salidas, ventasPts, salidasPts, plotH };
-  }, [weeks, width, hasForecast, forecast]);
+  }, [weeks, width, hasForecast, forecastValue]);
 
   const { colW, x, y, ticks, baseY, salidas, ventasPts, salidasPts } = model;
 
@@ -117,7 +119,7 @@ export default function TideChart({
 
   const predIndex = weeks.length;
   const lastSalida = salidasPts[salidasPts.length - 1];
-  const predPt = hasForecast ? [x(predIndex), y(forecast.estimatedNeeded)] : null;
+  const predPt = hasForecast ? [x(predIndex), y(forecastValue)] : null;
 
   function onKey(e, i) {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
@@ -318,7 +320,7 @@ export default function TideChart({
                 fill={MAGENTA}
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                {fmtCompact(forecast.estimatedNeeded)}
+                {fmtCompact(forecastValue)}
               </text>
             </g>
           )}

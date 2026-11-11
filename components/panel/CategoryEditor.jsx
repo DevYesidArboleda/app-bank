@@ -33,7 +33,7 @@ export default function CategoryEditor({ tx, config, periodTransactions, onSave,
         ? { category, pattern, txId: tx.id }
         : { category, txId: tx.id, description: tx.description };
     // Si se guarda, la fila se mueve de categoría y este editor se cierra.
-    if (!(await onSave(payload))) {
+    if ((await onSave(payload)) !== true) {
       setSaving(false);
       setFailed(true);
     }

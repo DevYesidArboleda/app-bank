@@ -1848,6 +1848,80 @@ tr[aria-selected="true"] .payroll-trigger[data-empty="true"] svg {
   overflow-wrap: anywhere;
 }
 
+/* Administrar categorías */
+.cat-keywords {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.rule-list li.is-editing {
+  display: block;
+  padding: 10px 0 0;
+}
+
+.cat-editor textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--step-0);
+  resize: vertical;
+}
+
+.cat-new {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.cat-new input {
+  width: 100%;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--step-0);
+}
+
+.cat-new .cat-editor-error {
+  flex-basis: 100%;
+}
+
+.cat-delete {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.link-btn.link-danger {
+  align-self: flex-start;
+  color: var(--deficit);
+}
+
+.btn-danger {
+  background: var(--deficit);
+  border-color: var(--deficit);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #8a2f23;
+  border-color: #8a2f23;
+}
+
 /* ── Login ─────────────────────────────────────────────────────────── */
 .login {
   min-height: 100dvh;

@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server";
-import { applyOverride, applyRule, removeOverride, removeRule } from "@/lib/categories";
+import {
+  applyOverride,
+  applyRule,
+  createCategory,
+  deleteCategory,
+  removeOverride,
+  removeRule,
+  renameCategory,
+  setKeywords,
+} from "@/lib/categories";
 import { getCategoryConfig, saveCategoryConfig } from "@/lib/categoryStore";
 
 async function update(change) {
@@ -32,5 +41,24 @@ export async function DELETE(request) {
     if (body.pattern) return removeRule(config, body.pattern);
     if (body.txId) return removeOverride(config, body.txId);
     throw new Error("Missing pattern or txId");
+  });
+}
+
+// Editar las categorías mismas (todas, también las que trae el app):
+// { action: "create", name } | { action: "rename", from, to }
+// | { action: "delete", name, moveTo? } | { action: "keywords", name, keywords: [] }
+const CATEGORY_ACTIONS = {
+  create: createCategory,
+  rename: renameCategory,
+  delete: deleteCategory,
+  keywords: setKeywords,
+};
+
+export async function PATCH(request) {
+  const body = (await request.json().catch(() => null)) || {};
+  return update((config) => {
+    const action = CATEGORY_ACTIONS[body.action];
+    if (!action) throw new Error("Unknown action");
+    return action(config, body);
   });
 }

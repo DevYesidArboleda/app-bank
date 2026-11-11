@@ -250,8 +250,9 @@ export default function CashPanel() {
     return true;
   }
 
-  // Guarda o quita una regla y reclasifica lo ya cargado: el total no cambia y
-  // así no se vuelve a consultar SimpleFIN ni Jobber por cada cambio.
+  // Guarda un cambio de categorías y reclasifica lo ya cargado: el total no
+  // cambia y así no se vuelve a consultar SimpleFIN ni Jobber por cada cambio.
+  // Devuelve true, o el motivo si el servidor lo rechazó (ej. nombre repetido).
   async function changeCategorization(method, body) {
     let next;
     try {
@@ -260,8 +261,8 @@ export default function CashPanel() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!r.ok) return false;
-      next = await r.json();
+      next = await r.json().catch(() => ({}));
+      if (!r.ok) return r.status === 400 && next.error ? next.error : false;
     } catch {
       return false;
     }
@@ -489,6 +490,7 @@ export default function CashPanel() {
         categoryConfig={categoryConfig}
         onSaveCategory={(body) => changeCategorization("POST", body)}
         onRemoveCategory={(body) => changeCategorization("DELETE", body)}
+        onEditCategories={(body) => changeCategorization("PATCH", body)}
       />
 
       {toast && (

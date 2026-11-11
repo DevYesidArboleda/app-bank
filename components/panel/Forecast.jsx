@@ -1,4 +1,5 @@
-import { fmt } from "./format";
+import { Fragment } from "react";
+import { fmt, weekRange } from "./format";
 import { IconAlert, IconCheck, IconInfo } from "./icons";
 
 function Amount({ value }) {
@@ -65,8 +66,7 @@ export default function Forecast({
           <IconInfo />
           <div>
             <strong>Not enough outflows to forecast</strong>
-            The last {forecast.basedOnWeeks} weeks have no payroll or expenses recorded, so the average
-            would be $0.
+            No recent week has payroll recorded, so there’s nothing to average.
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               <button type="button" className="btn btn-sm btn-primary" onClick={openFirstEmptyPayroll}>
                 Enter payroll
@@ -113,27 +113,31 @@ export default function Forecast({
         <p className="forecast-label">Cash needed next week</p>
         <Amount value={need} />
         <p className="forecast-basis">
-          In-house forecast: average of the last {forecast.basedOnWeeks}{" "}
-          {forecast.basedOnWeeks === 1 ? "full week" : "full weeks"}. Not from Jobber,
+          Payroll estimate: average payroll of the last {forecast.basedOnWeeks}{" "}
+          {forecast.basedOnWeeks === 1 ? "week" : "weeks"} with payroll. Not from Jobber,
           Chase or Paychex.
         </p>
       </div>
 
       <dl className="terms">
-        <dt>
-          <span className="swatch" style={{ background: "var(--salidas)" }} />
-          Estimated payroll
-        </dt>
-        <dd>{fmt(forecast.avgPayroll)}</dd>
-        <dt>
-          <span className="swatch" style={{ background: "var(--salidas)", opacity: 0.45 }} />
-          Estimated expenses
-        </dt>
-        <dd>{fmt(forecast.avgGastos)}</dd>
+        {(forecast.payrollWeeks || []).map((w) => (
+          <Fragment key={w.weekStart}>
+            <dt>
+              <span className="swatch" style={{ background: "var(--salidas)" }} />
+              Payroll {weekRange(w)}
+            </dt>
+            <dd>{fmt(w.payroll)}</dd>
+          </Fragment>
+        ))}
         <div className="total" style={{ display: "contents" }}>
-          <dt>Total</dt>
+          <dt>Average payroll</dt>
           <dd>{fmt(need)}</dd>
         </div>
+        <dt>
+          <span className="swatch" style={{ background: "var(--salidas)", opacity: 0.45 }} />
+          Avg. weekly expenses (not included)
+        </dt>
+        <dd>{fmt(forecast.avgGastos)}</dd>
       </dl>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -186,7 +190,7 @@ export default function Forecast({
             <IconAlert />
             <span>
               {missingPayroll === 1 ? "One recent week has" : `${missingPayroll} recent weeks have`} no payroll
-              entered; the forecast may come up short.
+              entered; those weeks are skipped and older weeks are used instead.
             </span>
           </div>
         )}
