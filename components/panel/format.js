@@ -80,7 +80,7 @@ export const GROUPINGS = {
   mes: { label: "Month", plural: "months", size: 4, ranges: [1, 2, 3], defaultRange: 3 },
 };
 
-const SUM_KEYS = ["ventasBruto", "impuestos", "ventasNeto", "payroll", "gastos", "transferencias", "total"];
+const SUM_KEYS = ["ventasBruto", "impuestos", "ventasNeto", "comision", "payroll", "gastos", "transferencias", "total"];
 const round2 = (n) => Math.round(n * 100) / 100;
 const byDateDesc = (a, b) => b.date.localeCompare(a.date);
 

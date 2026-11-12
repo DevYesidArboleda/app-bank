@@ -8,7 +8,10 @@ const NEW_CATEGORY = "__new__";
 // Cambia la categoría de una transacción: de todas las parecidas (regla que se
 // guarda y se aplica a las pasadas y a las futuras) o solo de esa.
 export default function CategoryEditor({ tx, config, periodTransactions, onSave, onCancel }) {
-  const suggested = suggestPattern(tx.description);
+  // Una transacción sacada de "Not counted" se mueve sola: una regla no la
+  // haría contar como gasto.
+  const onlyThis = Boolean(tx.reason);
+  const suggested = onlyThis ? "" : suggestPattern(tx.description);
   const [choice, setChoice] = useState(tx.category);
   const [newName, setNewName] = useState("");
   const [scope, setScope] = useState(suggested ? "all" : "one");
@@ -61,6 +64,9 @@ export default function CategoryEditor({ tx, config, periodTransactions, onSave,
         )}
       </div>
 
+      {onlyThis ? (
+        <p className="cat-editor-note">This transaction will count as an expense in the chosen category.</p>
+      ) : (
       <fieldset className="cat-scope">
         <legend className="sr-only">Apply to</legend>
         <label>
@@ -79,6 +85,7 @@ export default function CategoryEditor({ tx, config, periodTransactions, onSave,
           Only this transaction
         </label>
       </fieldset>
+      )}
 
       {scope === "all" && (
         <p className="cat-editor-note">

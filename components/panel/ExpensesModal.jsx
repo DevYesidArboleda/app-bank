@@ -12,7 +12,7 @@ const REASON_COPY = {
   account: "Excluded account",
 };
 
-function TxTable({ items, showReason, editor }) {
+function TxTable({ items, showReason, editor, onIncludeAccount }) {
   return (
     <table className="tx-table">
       <thead className="sr-only">
@@ -41,7 +41,15 @@ function TxTable({ items, showReason, editor }) {
                         aria-expanded={editor.editingId === tx.id}
                         onClick={() => editor.setEditingId(editor.editingId === tx.id ? null : tx.id)}
                       >
-                        Change category
+                        {showReason ? "Count as expense" : "Change category"}
+                      </button>
+                    </>
+                  )}
+                  {onIncludeAccount && tx.reason === "account" && (
+                    <>
+                      {" · "}
+                      <button type="button" className="link-btn" onClick={() => onIncludeAccount(tx.account)}>
+                        Count all from {tx.account}
                       </button>
                     </>
                   )}
@@ -73,7 +81,8 @@ function TxTable({ items, showReason, editor }) {
 function SavedRules({ config, onRemove }) {
   const [failed, setFailed] = useState(false);
   const overrides = Object.entries(config.overrides);
-  const count = config.rules.length + overrides.length;
+  const accounts = config.includedAccounts || [];
+  const count = config.rules.length + overrides.length + accounts.length;
   if (count === 0) return null;
 
   async function remove(body) {
@@ -84,7 +93,9 @@ function SavedRules({ config, onRemove }) {
     <details className="cat cat-excluded">
       <summary>
         <span className="cat-name">Your category rules</span>
-        <span className="cat-count">Removing one returns its transactions to the automatic category</span>
+        <span className="cat-count">
+          Removing one returns its transactions to the automatic category, or to &quot;Not counted&quot;
+        </span>
         <span className="cat-amount">{count}</span>
       </summary>
       {failed && (
@@ -109,6 +120,16 @@ function SavedRules({ config, onRemove }) {
               Only <strong>{override.description || "this transaction"}</strong> → {override.category}
             </span>
             <button type="button" className="link-btn" onClick={() => remove({ txId })}>
+              Remove
+            </button>
+          </li>
+        ))}
+        {accounts.map((account) => (
+          <li key={`account:${account}`}>
+            <span className="rule-text">
+              Account <strong>{account}</strong> counts as expenses
+            </span>
+            <button type="button" className="link-btn" onClick={() => remove({ account })}>
               Remove
             </button>
           </li>
@@ -166,6 +187,10 @@ export default function ExpensesModal({
       return saved;
     },
   };
+  const [includeFailed, setIncludeFailed] = useState(false);
+  async function includeAccount(account) {
+    setIncludeFailed((await onSaveCategory({ account })) !== true);
+  }
 
   return (
     <dialog
@@ -257,7 +282,12 @@ export default function ExpensesModal({
                   </span>
                   <span className="cat-amount">{fmt(excludedTotal)}</span>
                 </summary>
-                <TxTable items={excluidos} showReason />
+                {includeFailed && (
+                  <p className="cat-editor-error rule-error" role="alert">
+                    Couldn&apos;t update the account. Please try again.
+                  </p>
+                )}
+                <TxTable items={excluidos} showReason editor={editor} onIncludeAccount={includeAccount} />
               </details>
             )}
 

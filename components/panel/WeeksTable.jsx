@@ -181,7 +181,7 @@ export default function WeeksTable({
         </table>
       </div>
       <p className="table-foot">
-        Net sales already exclude sales tax (6.625%). Expenses only count outflows to third parties: they exclude the
+        Net sales already exclude sales tax (6.625%). The result also subtracts a 10% fee on net sales. Expenses only count outflows to third parties: they exclude the
         tax account, transfers between your accounts and card payments. Weeks run Saturday to Friday, like the payroll
         sheet. Payroll comes from the Google Sheet (one tab per week); weeks without a tab can be entered manually.
       </p>

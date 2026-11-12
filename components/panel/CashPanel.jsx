@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { EMPTY_CONFIG, reclassifyWeek } from "@/lib/categories";
+import { withResult } from "@/lib/result";
 import Accounts from "./Accounts";
 import ExpensesModal from "./ExpensesModal";
 import Forecast from "./Forecast";
@@ -237,7 +238,7 @@ export default function CashPanel() {
             ...s,
             summary: s.summary.map((w) =>
               w.weekStart === week.weekStart
-                ? { ...w, payroll: amount, total: Math.round((w.ventasNeto - amount - w.gastos) * 100) / 100 }
+                ? withResult({ ...w, payroll: amount })
                 : w
             ),
           }
@@ -250,8 +251,8 @@ export default function CashPanel() {
     return true;
   }
 
-  // Guarda un cambio de categorías y reclasifica lo ya cargado: el total no
-  // cambia y así no se vuelve a consultar SimpleFIN ni Jobber por cada cambio.
+  // Guarda un cambio de categorías y reclasifica lo ya cargado (categorías, lo
+  // que cuenta como gasto y el resultado) sin volver a consultar SimpleFIN ni Jobber.
   // Devuelve true, o el motivo si el servidor lo rechazó (ej. nombre repetido).
   async function changeCategorization(method, body) {
     let next;

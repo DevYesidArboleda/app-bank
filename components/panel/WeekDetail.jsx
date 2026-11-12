@@ -1,3 +1,4 @@
+import { FEE_RATE } from "@/lib/result";
 import { fmt, fmtSigned, weekRange } from "./format";
 
 // Barras de longitud exacta: todas comparten una sola escala (las ventas brutas),
@@ -64,7 +65,7 @@ export default function WeekDetail({ week, isCurrent, onOpen }) {
     return <p className="muted">Select a period in the chart or the table.</p>;
   }
 
-  const scale = Math.max(week.ventasBruto || 0, (week.payroll || 0) + (week.gastos || 0), Math.abs(week.total || 0), 1);
+  const scale = Math.max(week.ventasBruto || 0, (week.comision || 0) + (week.payroll || 0) + (week.gastos || 0), Math.abs(week.total || 0), 1);
 
   return (
     <>
@@ -79,6 +80,13 @@ export default function WeekDetail({ week, isCurrent, onOpen }) {
         <Row label="Gross sales" value={week.ventasBruto || 0} scale={scale} color="#14202b" />
         <Row label="Taxes" value={week.impuestos || 0} scale={scale} color="#9aa3ab" />
         <Row label="Net sales" value={week.ventasNeto || 0} scale={scale} color="#14202b" />
+        <Row label={`Fee (${FEE_RATE * 100}% of net sales)`} value={week.comision || 0} scale={scale} color="#9aa3ab" />
+        <Row
+          label="Net sales after fee"
+          value={Math.round(((week.ventasNeto || 0) - (week.comision || 0)) * 100) / 100}
+          scale={scale}
+          color="#14202b"
+        />
         <div className="measure-divider" />
         <Row label="Payroll" value={week.payroll || 0} scale={scale} color="var(--salidas)" />
         <Row label="Expenses" value={week.gastos || 0} scale={scale} color="rgba(61,143,179,0.5)" />
